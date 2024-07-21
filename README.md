@@ -1,7 +1,7 @@
 # project description
 this is a simplex real-time audio steamer made in c and runs on linux os leveraging the portaudio for audio record and playing functionality and using udp as the networking means for the same .
 
-# how to run ?
+# how to run (for initial release) ?
 1) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal ->
 
 sudo apt-get install portaudio19-dev
