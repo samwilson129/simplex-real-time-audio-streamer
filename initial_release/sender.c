@@ -49,7 +49,6 @@ int main()
     inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultHighInputLatency;
     inputParameters.hostApiSpecificStreamInfo = NULL;
 
-
     err = Pa_OpenStream(&stream, &inputParameters, NULL, SAMPLE_RATE,
                         FRAMES_PER_BUFFER, paClipOff, audioCallback, NULL);
     if (err != paNoError) {
@@ -57,7 +56,6 @@ int main()
         goto error;
     }
 
-    
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd < 0) {
         perror("socket");
@@ -83,7 +81,7 @@ int main()
         fprintf(stderr, "PortAudio error: %s\n", Pa_GetErrorText(err));
         goto error;
     }
-s
+
     err = Pa_CloseStream(stream);
     if (err != paNoError) {
         fprintf(stderr, "PortAudio error: %s\n", Pa_GetErrorText(err));
@@ -108,4 +106,5 @@ error:
     fprintf(stderr, "An error occurred.\n");
     return 1;
 }
+
 
