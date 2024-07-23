@@ -3,6 +3,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "portaudio.h"
 
 #define SAMPLE_RATE 44100
@@ -13,6 +14,7 @@ PaStream *stream;
 int sockfd;
 struct sockaddr_in serverAddr, clientAddr;
 socklen_t addrLen;
+pthread_t sendThread, recvThread;
 
 static int audioCallback(const void *inputBuffer, void *outputBuffer,
                          unsigned long framesPerBuffer,
@@ -27,13 +29,22 @@ static int audioCallback(const void *inputBuffer, void *outputBuffer,
         perror("recvfrom");
         return paContinue;
     }
-    
-    
-    if (receivedBytes < (ssize_t)(framesPerBuffer * sizeof(float))) {
-        memset((char *)out + receivedBytes, 0, framesPerBuffer * sizeof(float) - receivedBytes);
-    }
-    
     return paContinue;
+}
+
+void *sendAudio(void *arg)
+{
+    float buffer[FRAMES_PER_BUFFER];
+    memset(buffer, 0, sizeof(buffer));
+    
+    while (1) {
+        ssize_t sentBytes = sendto(sockfd, buffer, FRAMES_PER_BUFFER * sizeof(float), 0,
+                                   (struct sockaddr *)&clientAddr, addrLen);
+        if (sentBytes < 0) {
+            perror("sendto");
+        }
+    }
+    return NULL;
 }
 
 int main()
@@ -82,14 +93,19 @@ int main()
 
     addrLen = sizeof(clientAddr);
 
+    if (pthread_create(&sendThread, NULL, sendAudio, NULL) != 0) {
+        perror("pthread_create");
+        goto error;
+    }
+
     err = Pa_StartStream(stream);
     if (err != paNoError) {
         fprintf(stderr, "PortAudio error: %s\n", Pa_GetErrorText(err));
         goto error;
     }
 
-    printf("Receiving and Playing audio. Press ctrl+c to stop...\n");
-    getchar(); 
+    printf("Receiving and Playing audio. Press Enter to stop...\n");
+    getchar(); // Wait for Enter key press
 
     err = Pa_StopStream(stream);
     if (err != paNoError) {
@@ -105,6 +121,8 @@ int main()
 
     Pa_Terminate();
     close(sockfd);
+    pthread_cancel(sendThread);
+    pthread_join(sendThread, NULL);
     printf("PortAudio terminated.\n");
 
     return 0;
@@ -121,5 +139,3 @@ error:
     fprintf(stderr, "An error occurred.\n");
     return 1;
 }
-
-
