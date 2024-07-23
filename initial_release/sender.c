@@ -3,12 +3,13 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <pthread.h>
 #include "portaudio.h"
 
 #define SAMPLE_RATE 44100
 #define FRAMES_PER_BUFFER 512
 #define SERVER_PORT 12345
-#define SERVER_IP "192.168.0.167" // Receiver VM IP address
+#define SERVER_IP "192.168.0.167" // Receiver VM's IP address
 
 PaStream *stream;
 int sockfd;
@@ -34,11 +35,13 @@ int main()
 {
     PaError err;
     PaStreamParameters inputParameters;
+
     err = Pa_Initialize();
     if (err != paNoError) {
         fprintf(stderr, "PortAudio error: %s\n", Pa_GetErrorText(err));
         goto error;
     }
+
     inputParameters.device = Pa_GetDefaultInputDevice();
     if (inputParameters.device == paNoDevice) {
         fprintf(stderr, "Error: No default input device.\n");
@@ -74,7 +77,7 @@ int main()
     }
 
     printf("Recording and Sending audio. Press Enter to stop...\n");
-    getchar(); 
+    getchar(); // Wait for Enter key press
 
     err = Pa_StopStream(stream);
     if (err != paNoError) {
@@ -106,5 +109,6 @@ error:
     fprintf(stderr, "An error occurred.\n");
     return 1;
 }
+
 
 
