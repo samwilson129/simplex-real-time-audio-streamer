@@ -3,7 +3,6 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <pthread.h>
 #include "portaudio.h"
 
 #define SAMPLE_RATE 44100
