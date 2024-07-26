@@ -9,7 +9,7 @@
 #define SAMPLE_RATE 44100
 #define FRAMES_PER_BUFFER 512
 #define SERVER_PORT 12345
-#define SERVER_IP "0.0.0.0" //change to receivers IPv4 address
+#define SERVER_IP "0.0.0.0" //change to receiver's IPv4 address
 #define TIMEOUT_USEC 50000
 
 PaStream *stream;
