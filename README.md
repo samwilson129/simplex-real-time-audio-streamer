@@ -1,5 +1,5 @@
 # project description
-this is a simplex real-time audio steamer made in c and runs on linux os leveraging the portaudio for audio record and playing functionality between two devices .
+this is a simplex real-time audio steamer made in c and runs on linux os leveraging the portaudio for audio recording and playing functionality between two devices .
 
 # version information
 1)initial_release -> this is the most basic form of the project with a simple UDP connection through which audio is streamed from sender to receiver in real-time .
