@@ -8,7 +8,7 @@
 #define SAMPLE_RATE 44100
 #define FRAMES_PER_BUFFER 512
 #define SERVER_PORT 12345
-#define SERVER_IP "192.168.0.167" // Receiver VM's IP address
+#define SERVER_IP "192.168.0.167" // Receiver's IP address
 
 PaStream *stream;
 int sockfd;
