@@ -42,7 +42,7 @@ sudo apt-get install -y portaudio19-dev libasound-dev build-essential
 
 sudo dnf install -y portaudio-devel alsa-lib-devel gcc
 
-3) copy sender , receiver and relay_server c files onto any three pcs , and change the ip-address in the sender file to that of receiver pc ip .
+3) copy sender , receiver and relay_server c files onto any three pcs , and change the ip-address in the sender file and receiver file to the relay_server pc ip .
 
 4) compile programs on all three pcs using below commands on sender , receiver , relay_server side terminals in their directories respectively using below commands ->
    
