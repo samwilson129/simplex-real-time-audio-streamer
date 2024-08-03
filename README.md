@@ -61,4 +61,5 @@ gcc -o relay_server relay_server.c -lpthread
 ./sender
 
 6) after receiving confirmation message in the relay_server terminal that the sender is connected run the program on the receiver side terminal after compiling it in its directory using below command ->
+
 ./receiver
