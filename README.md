@@ -11,9 +11,13 @@ this is a simplex real-time audio steamer made in c and runs on linux os leverag
 4)update_2 -> this update utilizes a TCP connection similar to update_1.1b but introduces a relay_server between the sender and receiver which can be further deployed on a cloud instance to enable audio streaming through cloud . 
 
 # how to run (upto version 1.1) ?
-1) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal ->
+1 a) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal for Debian-based linux distributions ->
 
-sudo apt-get install portaudio19-dev
+sudo apt-get install -y portaudio19-dev libasound-dev build-essential
+
+1 b) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal for Red Hat-based linux distributions ->
+
+sudo dnf install -y portaudio-devel alsa-lib-devel gcc
 
 3) copy sender and receiver c files onto any two pcs , and change the ip-address in the sender file to that of receiver pc ip .
 
@@ -30,9 +34,13 @@ gcc -o receiver receiver.c -lportaudio
 ./receiver
 
 # how to run (for version 2) ?
-1) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal ->
+1 a) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal for Debian-based linux distributions ->
 
-sudo apt-get install portaudio19-dev
+sudo apt-get install -y portaudio19-dev libasound-dev build-essential
+
+1 b) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal for Red Hat-based linux distributions ->
+
+sudo dnf install -y portaudio-devel alsa-lib-devel gcc
 
 3) copy sender , receiver and relay_server c files onto any three pcs , and change the ip-address in the sender file to that of receiver pc ip .
 
