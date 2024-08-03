@@ -8,7 +8,9 @@ this is a simplex real-time audio steamer made in c and runs on linux os leverag
 
 3)update_1.1b -> this update utilizes a TCP connection instead of a UDP connection and provides further more reliable connection ,with the drawback being it needs a stable network connection to prevent latency issues .
 
-# how to run ?
+4)update_2 -> this update utilizes a TCP connection similar to update_1.1b but introduces a relay_server between the sender and receiver which can be further deployed on a cloud instance to enable audio streaming through cloud . 
+
+# how to run (upto version 1.1) ?
 1) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal ->
 
 sudo apt-get install portaudio19-dev
@@ -27,5 +29,28 @@ gcc -o receiver receiver.c -lportaudio
 
 ./receiver
 
+# how to run (for version 2) ?
+1) first install port-audio in your system if its not already installed ,enter the below commnand in your linux terminal ->
 
+sudo apt-get install portaudio19-dev
 
+3) copy sender , receiver and relay_server c files onto any three pcs , and change the ip-address in the sender file to that of receiver pc ip .
+
+4) compile programs on all three pcs using below commands on sender , receiver , relay_server side terminals in their directories respectively using below commands ->
+   
+gcc -o sender sender.c -lportaudio
+
+gcc -o receiver receiver.c -lportaudio
+
+gcc -o relay_server relay_server.c -lpthread
+
+5) run the program on the relay server terminal after compiling it in its directory using below command ->
+
+./relay_server
+
+5) run the program on the sender side terminal after compiling it in its directory using below command ->
+   
+./sender
+
+6) after receiving confirmation message in the relay_server terminal that the sender is connected run the program on the receiver side terminal after compiling it in its directory using below command ->
+./receiver
